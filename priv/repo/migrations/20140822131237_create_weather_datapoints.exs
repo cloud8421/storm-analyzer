@@ -4,7 +4,7 @@ defmodule StormAnalyzer.Repo.Migrations.CreateWeatherDatapoints do
   def up do
     """
     CREATE TABLE IF NOT EXISTS weather_datapoints(
-      id serial primary key,
+      uuid uuid primary key,
       temperature numeric(1),
       brightness integer,
       external_temperature numeric(1),
