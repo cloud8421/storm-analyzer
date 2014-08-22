@@ -8,6 +8,7 @@ defmodule StormAnalyzer do
 
     children = [
       # Define workers and child supervisors to be supervised
+      worker(Repo, [])
       # worker(StormAnalyzer.Worker, [arg1, arg2, arg3])
     ]
 
