@@ -5,14 +5,19 @@ defmodule DeltaOverTime do
     delta: nil,
     timestamp: nil
 
-
   def from_query_result(query_result) do
     columns = query_result.columns
     Enum.map(query_result.rows, fn(row) ->
       Enum.zip(columns, row |> Tuple.to_list)
       |> Enum.reduce(%DeltaOverTime{}, fn({col_name, value}, acc) ->
-        Map.put(acc, col_name |> String.to_atom, value)
+        casted_value = cast(col_name, value)
+        Map.put(acc, col_name |> String.to_atom, casted_value)
       end)
     end)
   end
+
+  defp cast(col_name, value) when col_name in ["temperature", "previous_temperature"] do
+    Float.round(value, 2)
+  end
+  defp cast(_, value), do: value
 end
