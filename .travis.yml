@@ -4,8 +4,7 @@ otp_release:
 addons:
   postgresql: "9.3"
 before_install:
-  - wget http://s3.hex.pm/builds/elixir/master.zip
-  - https://github.com/elixir-lang/elixir/releases/download/v0.15.1/Precompiled.zip
+  - wget https://github.com/elixir-lang/elixir/releases/download/v0.15.1/Precompiled.zip
   - unzip -d elixir Precompiled.zip
 before_script:
   - export PATH=`pwd`/elixir/bin:$PATH
