@@ -9,9 +9,14 @@ Please see <http://www.erlang.org/doc/getting_started/conc_prog.html> for more d
 The application requires [Elixir](http://elixir-lang.org/) and Postgresql.
 
     $ mix deps.get
-    $ createdb -u YOUR_USER storm_analyzer
+    $ createdb -u YOUR_USER storm_analyzer_dev
+    $ createdb -u YOUR_USER storm_analyzer_test
     $ mix ecto.migrate Repo
-    $ COLLECTOR_NODE=name@host POSTGRES_URL="ecto://user:password@host/storm_analyzer" make start
+    $ COLLECTOR_NODE=name@host DATABASE_URL="ecto://user:password@host/storm_analyzer" make start
+
+## Tests
+
+    $ MIX_ENV=test mix test
 
 ## Available iex commands
 
