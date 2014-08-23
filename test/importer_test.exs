@@ -13,7 +13,7 @@ defmodule ImporterTest do
       summary: "Partly Cloudy", temp: 25.2,
       timestamp: {{2014, 8, 22}, {14, 23, 11}},
       uuid: 'd8939dfc-2a07-11e4-8067-b8e8563a72e8'}
-    record = Importer.import(collector_datapoint)
-    Repo.insert(record)
+    Importer.import(collector_datapoint)
+    assert(WeatherDatapoint |> Repo.all |> Enum.count == 1)
   end
 end
