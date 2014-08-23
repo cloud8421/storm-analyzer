@@ -1,0 +1,18 @@
+language: erlang
+otp_release:
+   - 17.1
+addons:
+  postgresql: "9.3"
+before_install:
+  - wget http://s3.hex.pm/builds/elixir/master.zip
+  - https://github.com/elixir-lang/elixir/releases/download/v0.15.1/Precompiled.zip
+  - unzip -d elixir Precompiled.zip
+before_script:
+  - export PATH=`pwd`/elixir/bin:$PATH
+  - export DATABASE_URL="ecto://postgres:@localhost/storm_analyzer"
+  - mix local.hex --force
+  - mix deps.get
+  - psql -c 'create database storm_analyzer_test;' -U postgres
+  - MIX_ENV=test mix ecto.migrate Repo
+script:
+  - MIX_ENV=test mix test
