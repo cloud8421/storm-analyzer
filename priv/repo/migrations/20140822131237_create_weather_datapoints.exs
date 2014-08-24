@@ -9,7 +9,7 @@ defmodule StormAnalyzer.Repo.Migrations.CreateWeatherDatapoints do
       brightness integer,
       external_temperature real,
       summary text,
-      timestamp time
+      timestamp timestamp
     );
     """
   end
