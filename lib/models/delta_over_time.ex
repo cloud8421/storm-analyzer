@@ -16,7 +16,7 @@ defmodule DeltaOverTime do
     end)
   end
 
-  defp cast(col_name, value) when col_name in ["temperature", "previous_temperature"] do
+  defp cast(col_name, value) when col_name in ["delta", "temperature", "previous_temperature"] do
     Float.round(value, 2)
   end
   defp cast(_, value), do: value
