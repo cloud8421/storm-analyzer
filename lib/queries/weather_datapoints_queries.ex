@@ -18,7 +18,16 @@ defmodule WeatherDatapointsQueries do
         ) AS weather_with_variation
       ;
     """
-    Postgres.query(Repo, query, [])
+    Postgres.query(Repo, query, []) |> DeltaOverTime.from_query_result
+  end
+
+  def difference_inside_outside do
+    query = """
+    SELECT uuid, temperature, external_temperature, (temperature - external_temperature) AS difference, timestamp
+    FROM weather_datapoints
+    ORDER BY timestamp;
+    """
+    Postgres.query(Repo, query, []) |> DifferenceInsideOutside.from_query_result
   end
 
 end
