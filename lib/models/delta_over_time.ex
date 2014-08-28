@@ -1,23 +1,15 @@
 defmodule DeltaOverTime do
-  defstruct uuid: nil,
-    temperature: nil,
-    previous_temperature: nil,
-    delta: nil,
-    timestamp: nil
+  use Ecto.Model
 
-  def from_query_result(query_result) do
-    columns = query_result.columns
-    Enum.map(query_result.rows, fn(row) ->
-      Enum.zip(columns, row |> Tuple.to_list)
-      |> Enum.reduce(%__MODULE__{}, fn({col_name, value}, acc) ->
-        casted_value = cast(col_name, value)
-        Map.put(acc, col_name |> String.to_atom, casted_value)
-      end)
-    end)
+  schema "delta_over_time", primary_key: {:uuid, :string, []} do
+    field :temperature, :float
+    field :external_temperature, :float
+    field :previous_temperature, :float
+    field :temperature_delta, :float
+    field :previous_external_temperature, :float
+    field :external_temperature_delta, :float
+    field :brightness, :integer
+    field :summary, :string
+    field :timestamp, :datetime
   end
-
-  defp cast(col_name, value) when col_name in ["delta", "temperature", "previous_temperature"] do
-    Float.round(value, 2)
-  end
-  defp cast(_, value), do: value
 end
